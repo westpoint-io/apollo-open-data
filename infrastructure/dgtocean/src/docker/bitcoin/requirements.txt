@@ -1,0 +1,6 @@
+kafka-python
+python-dotenv
+certifi
+python-bitcoinrpc
+pyzmq
+requests
