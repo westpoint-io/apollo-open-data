@@ -4,6 +4,8 @@ The Apollo Project is an open-source initiative designed to gather and analyze d
 
 The project aims to make it easier for developers, researchers, and enthusiasts to access, store, and analyze Crypto chain data efficiently. At this moment we're focusing on Bitcoin blockchain and will later expand.
 
+<br>
+
 # How does Apollo work?
 
 Apollo uses technologies such as Kafka, Mage, TimescaleDB and Grafana to have real-time blockchain data flowing to the dashboard, see the diagram below:
@@ -21,6 +23,8 @@ Check the docs below to understand how we use each technology in the Apollo proj
     <td><h4><a href="https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/grafana.md">Grafana 📊</a></h4></td>
   </tr>
 </table>
+
+<br>
 
 # Host Apollo yourself
 
@@ -44,6 +48,8 @@ Apollo infrastructure code is written with Pulumi and hosted in Digital Ocean, b
 
 - Now to deploy everything run `pulumi up` and validate that it has a successful output. If you have any issues in the process feel free to add an issue.
 
-## Contributors
+<br>
+
+# Contributors
 
 We're actively looking for new contributors, if you're interested let's connect via [Discord](https://discord.gg/QRVAjSFK).
