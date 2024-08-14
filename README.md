@@ -10,7 +10,7 @@ The project aims to make it easier for developers, researchers, and enthusiasts 
 
 Apollo uses technologies such as Kafka, Mage, TimescaleDB and Grafana to have real-time blockchain data flowing to the dashboard, see the diagram below:
 
-![image](https://github.com/user-attachments/assets/9907b088-8154-45f5-b315-c30b76cf26e0)
+![image](https://github.com/user-attachments/assets/3a80ba0e-1d7d-43ca-870a-6829c8ec13dc)
 
 ## Technologies docs
 
