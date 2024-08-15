@@ -1,33 +1,20 @@
-import { promises as fs } from "fs";
 import { join } from "path";
 import { stringify } from "yaml";
 import { config } from "dotenv";
-import { generatePipelineYaml } from "../utils/generate_pipeline_yaml";
+import { generatePipelineYaml } from "../utils/generatePipelineYaml";
+import { readPythonFile } from "../utils/readPythonFile";
 import { IPipelineFiles } from "../../types";
 
 config();
 
-const pipelineName = "test_pipeline";
+const pipelineName = "raw_bitcoin_blocks";
 
-async function readPythonFile() {
-  try {
-    const pythonFilePath = join(__dirname, `./${pipelineName}_transformer.py`);
-
-    // Read the file content
-    const data = await fs.readFile(pythonFilePath, "utf-8");
-    return data;
-  } catch (err) {
-    console.error("Error reading the file:", err);
-    return "";
-  }
-}
-
-export const getTestPipelineConfig = async () => {
+export const getBlocksPipelineConfig = async () => {
   const loaderConfig = {
     connector_type: "kafka",
-    bootstrap_server: process.env.KAFKA_BOOTSTRAP_SERVER,
+    bootstrap_server: process.env.KAFKA_BOOTSTRAP_SERVERS,
     topic: process.env.KAFKA_TOPIC,
-    consumer_group: "test_pipeline",
+    consumer_group: "raw_bitcoin_blocks",
     include_metadata: false,
     api_version: "0.10.2",
     auto_offset_reset: "earliest",
@@ -38,7 +25,7 @@ export const getTestPipelineConfig = async () => {
       password: process.env.KAFKA_PASSWORD,
     },
     ssl_config: {
-      cat_file: "/mage_data/cafile.crt",
+      cafile: "/mage_data/cafile.crt",
     },
     serde_config: {
       serialization_method: "RAW_METHOD",
@@ -47,18 +34,20 @@ export const getTestPipelineConfig = async () => {
   const exporterConfig = {
     connector_type: "postgres",
     database: process.env.PG_DB,
-    host: process.env.PH_HOST,
+    host: process.env.PG_HOST,
     username: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     port: process.env.PG_PORT,
     schema: "public",
-    table: process.env.PG_TABLE_NAME,
+    table: "raw_bitcoin_blocks",
     unique_conflict_method: "DO NOTHING",
-    unique_constraints: ["tx_txid", "tx_hash", "tx_timestamp"],
+    unique_constraints: ["hash", "block_time"],
   };
 
   const loaderFileContent = stringify(loaderConfig);
-  const transformerFileContent = await readPythonFile();
+  const transformerFileContent = await readPythonFile(
+    join(__dirname, `./${pipelineName}_transformer.py`)
+  );
   const exporterFileContent = stringify(exporterConfig);
 
   const blocksToCreate = [
@@ -122,5 +111,3 @@ export const getTestPipelineConfig = async () => {
 
   return [...blocksToCreate, pipelineMetadata] as IPipelineFiles[];
 };
-
-getTestPipelineConfig();

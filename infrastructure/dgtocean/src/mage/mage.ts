@@ -1,6 +1,5 @@
 import * as k8s from "@pulumi/kubernetes";
 import * as digitalocean from "@pulumi/digitalocean";
-import * as pulumi from "@pulumi/pulumi";
 
 import { pipelineDataToCreate } from "./pipelines";
 

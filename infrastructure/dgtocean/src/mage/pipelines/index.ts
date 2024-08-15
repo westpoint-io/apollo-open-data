@@ -1,7 +1,9 @@
-import { getTestPipelineConfig } from "./raw_test";
+import { getTransactionsPipelineConfig } from "./raw_bitcoin_transactions";
+import { getBlocksPipelineConfig } from "./raw_bitcoin_blocks";
 
 export const pipelineDataToCreate = async () => {
-  const testFiles = await getTestPipelineConfig();
+  const transactionFiles = await getTransactionsPipelineConfig();
+  const blockFiles = await getBlocksPipelineConfig();
 
-  return testFiles;
+  return [...transactionFiles, ...blockFiles];
 };
