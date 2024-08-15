@@ -425,6 +425,13 @@
   resolved "https://registry.yarnpkg.com/@pulumi/kubernetesx/-/kubernetesx-0.1.6.tgz#61518ae6a7d37c17998561b8d5290546815bad1d"
   integrity sha512-9VL4Yi4b4aLC/obBarJuNkm86kABByUZICYPSTdV396MGZtOc066o2brsB+kWVQcVfkYVXTPrpjIkAwBXXnzGw==
 
+"@pulumi/local@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@pulumi/local/-/local-0.1.2.tgz#99585b5451f2a74c7057917f6b3282ac26ee4146"
+  integrity sha512-3/44BGCQqUeSIUQP+BlpBKKjyO6Xv5HF0DkV2oeqllIWFNf+NR40pMtPYo7u+CyYGHVSW1vjbvjQw8jOKpY6mg==
+  dependencies:
+    "@pulumi/pulumi" "^3.0.0"
+
 "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.113.0", "@pulumi/pulumi@^3.25.0":
   version "3.123.0"
   resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.123.0.tgz#a5c17279bdd474eb8fa2ab2c0cad20734ae14750"
@@ -2882,6 +2889,11 @@ yallist@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
+
+yaml@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.5.0.tgz#c6165a721cf8000e91c36490a41d7be25176cf5d"
+  integrity sha512-2wWLbGbYDiSqqIKoPjar3MPgB94ErzCtrNE1FdqGuaO0pi2JGjmE8aW8TDZwzU7vuxcGRdL/4gPQwQ7hD5AMSw==
 
 yargs-parser@^21.1.1:
   version "21.1.1"
