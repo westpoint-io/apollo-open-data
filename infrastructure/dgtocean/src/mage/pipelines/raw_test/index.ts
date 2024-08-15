@@ -94,8 +94,8 @@ export const getTestPipelineConfig = async () => {
       pipeline_name: pipelineName,
       type: "data_exporter",
       executor_type: "local_python",
-      downstream_blocks: [`${pipelineName}_data_exporter`],
-      upstream_blocks: [`${pipelineName}_data_loader`],
+      downstream_blocks: [],
+      upstream_blocks: [`${pipelineName}_transformer`],
       all_upstream_blocks_executed: false,
     },
   ];
@@ -115,12 +115,10 @@ export const getTestPipelineConfig = async () => {
   const pipelineMetadata = {
     path: `/mage_data/pipelines/`,
     folder: pipelineName,
-    filename: "metadata.yaml",
+    filename: "metadata",
     extension: "yaml",
     content: pipelineMetadataYaml,
   };
-
-  console.log([...blocksToCreate, pipelineMetadata]);
 
   return [...blocksToCreate, pipelineMetadata] as IPipelineFiles[];
 };

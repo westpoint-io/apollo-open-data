@@ -27,6 +27,7 @@ export const generateBlock = (props: IBlockProps) => {
       },
     },
     language: extension,
+    type,
     ...config,
   };
 };
