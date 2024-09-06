@@ -1,0 +1,10 @@
+name: digitalocean
+runtime:
+  name: nodejs
+  options:
+    packagemanager: yarn
+description: A minimal TypeScript Pulumi program
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: typescript
