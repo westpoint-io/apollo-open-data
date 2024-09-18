@@ -12,9 +12,9 @@ One of the main reasons why we chose TimescaleDB is because of its [continuous a
 For example to aggregate transactions volume daily we can use the following SQL query:
 
 ```sql
-  SELECT time_bucket('1 day', timestamp) AS "time",
-    count(hash) AS transactions
-  FROM raw_bitcoin_transactions
+  SELECT time_bucket('1 day', timestamp) AS time,
+      sum(total_transactions) AS transactions
+  FROM btc_block_transactions
   GROUP BY (time_bucket('1 day', timestamp));
 ```
 
@@ -24,9 +24,9 @@ This would be turned into a materialized view with timescaledb.continuous option
 ```sql
   CREATE MATERIALIZED VIEW daily_transactions
   WITH (timescaledb.continuous, timescaledb.materialized_only=false) AS
-  SELECT time_bucket('1 day', timestamp) AS "time",
-    count(hash) AS transactions
-  FROM raw_bitcoin_transactions
+  SELECT time_bucket('1 day', timestamp) AS time,
+      sum(total_transactions) AS transactions
+  FROM btc_block_transactions
   GROUP BY (time_bucket('1 day', timestamp));
 ```
 

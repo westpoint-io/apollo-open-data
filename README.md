@@ -8,9 +8,9 @@ The project aims to make it easier for developers, researchers, and enthusiasts 
 
 # How does Apollo work?
 
-Apollo uses technologies such as Kafka, Mage, TimescaleDB and Grafana to have real-time blockchain data flowing to the dashboard, see the diagram below:
+Apollo uses technologies such as Python, TimescaleDB and Grafana to have real-time blockchain data flowing to the dashboard, see the diagram below:
 
-![image](https://github.com/user-attachments/assets/3a80ba0e-1d7d-43ca-870a-6829c8ec13dc)
+![apollo_explanation](https://github.com/user-attachments/assets/8f6502f6-ed0f-4c34-905e-2f91cd46ddc4)
 
 ## Technologies docs
 
@@ -18,7 +18,7 @@ Check the docs below to understand how we use each technology in the Apollo proj
 
 <table>
   <tr>
-    <td><h4><a href="https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/mage.md">Mage 🧙</a></h4></td>
+    <td><h4><a href="https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/bitcoin_node.md">Bitcoin Node ₿</a></h4></td>
     <td><h4><a href="https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/timescale.md">TimescaleDB 🦁</a></h4></td>
     <td><h4><a href="https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/grafana.md">Grafana 📊</a></h4></td>
   </tr>
