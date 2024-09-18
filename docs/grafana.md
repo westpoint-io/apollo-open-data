@@ -19,4 +19,4 @@ ORDER BY
   time;
 ```
 
-If you'd like to access the dashboard and explore the data yourself [click here](http://45.55.120.202/d/0s46279Sk/blockchain-stats?orgId=1).
+If you'd like to access the dashboard and explore the data yourself [click here](http://45.55.97.152/public-dashboards/8a4a9e8ce833414088dddf6e34055205).
