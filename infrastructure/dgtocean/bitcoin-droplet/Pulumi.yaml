@@ -1,4 +1,4 @@
-name: bitcoin-cluster
+name: bitcoin-droplet
 runtime:
   name: nodejs
   options:
