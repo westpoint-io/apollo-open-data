@@ -19,6 +19,7 @@ Check the docs below to understand how we use each technology in the Apollo proj
 <table>
   <tr>
     <td><h4><a href="https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/bitcoin_node.md">Bitcoin Node ₿</a></h4></td>
+    <td><h4><a href="https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/python_scripts.md">Scripts 👨‍💻</a></h4></td>
     <td><h4><a href="https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/timescale.md">TimescaleDB 🦁</a></h4></td>
     <td><h4><a href="https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/grafana.md">Grafana 📊</a></h4></td>
   </tr>
