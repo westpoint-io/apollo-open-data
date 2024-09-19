@@ -30,7 +30,7 @@ I'm using the transactions volume metric for this example, for this we have a ti
 
 ## Historical data
 
-You can find this script in `/bitcoin-cluster/scripts/transactions_volume_historical.py`, a quick explanation is that we fetch batches of 100, starting from the first block until the latest one available, it gets the properties needed and insert in postgres, see the code snippet below:
+You can find this script in `/bitcoin-droplet/scripts/transactions_volume_historical.py`, a quick explanation is that we fetch batches of 100, starting from the first block until the latest one available, it gets the properties needed and insert in postgres, see the code snippet below:
 
 ```python
 def fetch_block_data(number):
@@ -65,7 +65,7 @@ def process_batch(start, end):
 
 ## Real time fetch
 
-So there's another script in `/bitcoin-cluster/scripts/spark_transactions_volume.py` that essentially works the same way to fetch, process and insert the data, but it keeps looking for the newest block available from time to time.
+So there's another script in `/bitcoin-droplet/scripts/spark_transactions_volume.py` that essentially works the same way to fetch, process and insert the data, but it keeps looking for the newest block available from time to time.
 
 See this snippet below:
 
