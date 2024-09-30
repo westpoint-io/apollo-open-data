@@ -1,0 +1,15 @@
+{
+    "name": "automation-commands",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^18",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@pulumi/command": "^1.0.1",
+        "@pulumi/pulumi": "^3.113.0",
+        "@types/inquirer": "^9.0.7",
+        "inquirer": "^11.0.2",
+        "path": "^0.12.7"
+    }
+}

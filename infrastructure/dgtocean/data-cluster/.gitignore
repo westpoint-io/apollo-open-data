@@ -10,4 +10,5 @@ node_modules
 kubeconfig*.yaml
 Pulumi.dev.yaml
 Pulumi.prod.yaml
+Pulumi.automate-data-cluster.yaml
 __pycache__

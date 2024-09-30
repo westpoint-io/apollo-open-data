@@ -23,7 +23,7 @@ const bitcoinVolume =
         {
           region: "nyc1",
           size: 700,
-          name: "bitcoin-volume",
+          name: "bitcoin-automation-volume",
         },
         existingVolumeId ? { import: existingVolumeId } : undefined
       );
@@ -38,7 +38,7 @@ const bitcoinDroplet =
           image: "ubuntu-20-04-x64",
           region: "nyc1",
           size: "s-4vcpu-8gb",
-          name: "bitcoin-node",
+          name: "bitcoin-automation-node",
         },
         existingDropletId ? { import: existingDropletId } : undefined
       );
@@ -52,7 +52,11 @@ const volumeAttachment = new digitalocean.VolumeAttachment(
   }
 );
 
-// Exports
-export const dropletIp = bitcoinDroplet.ipv4Address;
-export const volumeId = bitcoinVolume.id;
-export const dropletId = bitcoinDroplet.id;
+/*** Exports ***/
+const volumeId = bitcoinVolume.id;
+const volumeName = bitcoinVolume.name;
+
+const dropletIp = bitcoinDroplet.ipv4Address;
+const dropletId = bitcoinDroplet.id;
+
+export { volumeId, volumeName, dropletIp, dropletId };

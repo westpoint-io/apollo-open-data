@@ -2,10 +2,12 @@
   "name": "digitalocean",
   "main": "index.ts",
   "scripts": {
-    "pulumi:deploy": "pulumi refresh --yes && pulumi up --yes"
+    "pulumi:deploy": "pulumi refresh --yes && pulumi up --yes",
+    "timescale:deploy": "npx ts-node ./src/timescale/scripts/bitcoin_base.ts"
   },
   "devDependencies": {
     "@types/node": "^18",
+    "@types/pg": "^8.11.10",
     "dotenv": "^16.4.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.0.0"
@@ -19,6 +21,7 @@
     "@pulumi/kubernetesx": "^0.1.6",
     "@pulumi/pulumi": "^3.113.0",
     "@pulumi/random": "^4.16.3",
+    "pg": "^8.13.0",
     "yaml": "^2.5.1"
   }
 }

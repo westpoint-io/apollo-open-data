@@ -1,0 +1,4 @@
+/bin/
+/node_modules/
+Pulumi.automated-automation-commands.yaml
+database_credentials.json

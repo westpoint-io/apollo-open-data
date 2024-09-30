@@ -1,18 +1,21 @@
 {
-  "name": "bitcoin-droplet",
-  "main": "index.ts",
-  "devDependencies": {
-    "@types/node": "^18",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@pulumi/digitalocean": "^4.0.0",
-    "@pulumi/pulumi": "^3.113.0",
-    "dotenv": "^16.4.5"
-  },
-  "scripts": {
-    "pulumi:deploy": "pulumi up --yes",
-    "pulumi:import": "ts-node import_resources.ts"
-  }
+    "name": "bitcoin-droplet",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^18",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@pulumi/digitalocean": "^4.0.0",
+        "@pulumi/pulumi": "^3.113.0",
+        "@types/inquirer": "^9.0.7",
+        "dotenv": "^16.4.5",
+        "inquirer": "^11.0.2"
+    },
+    "scripts": {
+        "pulumi:deploy": "pulumi up --yes",
+        "pulumi:import": "ts-node import_resources.ts",
+        "start": "ts-node cli.ts"
+    }
 }
