@@ -213,13 +213,11 @@ def daily_total(day: str):
     
     first_request = requests.get(f"{base_url}?q=time({day})&s=time(asc)")
     
-    # first_block = first_request.json()['data'][0]['id']
-    first_block = 259931
+    first_block = first_request.json()['data'][0]['id']
     
     last_request = requests.get(f"{base_url}?q=time({day})&s=time(desc)")
     
-    # last_block = last_request.json()['data'][0]['id']
-    last_block = 260139
+    last_block = last_request.json()['data'][0]['id']
 
     transactions_total = get_transactions_from_block(last_block, first_block, 10, 400000)
 
@@ -230,9 +228,7 @@ def daily_total(day: str):
 # test_kafka_retention_policy()
 
 def rebalance_all_days():
-    dates = [
-        "2013-09-25",
-    ]     
+    dates = ["2013-03-06", "2013-03-13", "2013-03-14", "2013-03-16", "2013-03-17", "2013-03-23", "2013-03-24", "2013-03-25", "2013-03-26", "2013-03-27", "2013-03-28", "2013-03-29", "2013-03-30", "2013-03-31", "2013-04-02", "2013-04-04", "2013-04-05", "2013-04-06", "2013-04-08", "2013-04-10", "2013-04-11", "2013-04-15", "2013-04-16", "2013-04-17", "2013-04-21", "2013-04-22", "2013-04-29",]     
     for date in dates:
         time.sleep(2)
         daily_total(date)

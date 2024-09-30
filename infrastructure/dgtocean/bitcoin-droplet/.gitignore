@@ -3,3 +3,5 @@
 Pulumi.bitcoindroplet.yaml
 .env
 generated_resources.ts
+Pulumi.dev.yaml
+Pulumi.automated-bitcoin-droplet.yaml

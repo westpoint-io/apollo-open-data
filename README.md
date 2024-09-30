@@ -29,27 +29,7 @@ Check the docs below to understand how we use each technology in the Apollo proj
 
 # Host Apollo yourself
 
-Apollo infrastructure code is written with Pulumi and hosted in Digital Ocean, but if you want to host you own version make sure to follow the instructions below.
-
-## Pulumi | Digital Ocean Setup
-
-### Pulumi config
-
-- First, install the Pulumi CLI [here](https://www.pulumi.com/docs/install/)
-
-- Start the stack by running `pulumi stack init <stack-name>`
-
-### Digital Ocean API key
-
-- Get your access token by accessing the API page from the Digital Ocean platform and generate a new token if you don't have one already, make sure to give the appropriate permissions.
-
-- Insert this token as part of the stack env by running `pulumi config set --secret digitalocean:token <your-do-token>`
-
-### Pulumi Stack
-
-- Now to deploy everything run `pulumi up` and validate that it has a successful output. If you have any issues in the process feel free to add an issue.
-
-<br>
+Apollo infrastructure code is written with Pulumi and hosted in Digital Ocean, you can quickly host your own version by follow the instructions [here](https://github.com/apollo-open-data/apollo-bitcoin/blob/main/docs/setup_infrastructure.md)
 
 # Contributors
 

@@ -1,6 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as k8s from "@pulumi/kubernetes";
 import * as path from "path";
+import * as k8s from "@pulumi/kubernetes";
 import * as dotenv from "dotenv";
 
 // Load environment variables from .env file
@@ -16,28 +16,6 @@ const namespace = new k8s.core.v1.Namespace(
     },
   },
   { provider: k8sProvider }
-);
-
-const localYamlFilePath = path.join(__dirname, "stackgres-operator.yml");
-
-const stackgresOperator = new k8s.yaml.ConfigFile(
-  "stackgres-operator",
-  {
-    file: localYamlFilePath,
-    transformations: [
-      (obj: any) => {
-        // Modify other resources to use the existing namespace
-        if (obj.metadata) {
-          obj.metadata.namespace = namespace.metadata.name;
-        }
-        return obj;
-      },
-    ],
-  },
-  {
-    provider: k8sProvider,
-    dependsOn: [namespace],
-  }
 );
 
 const storageClass = new k8s.storage.v1.StorageClass(
@@ -66,7 +44,7 @@ const pvc = new k8s.core.v1.PersistentVolumeClaim(
       accessModes: ["ReadWriteOnce"],
       resources: {
         requests: {
-          storage: "750Gi", // Initial size
+          storage: "100Gi", // Initial size
         },
       },
       storageClassName: storageClass.metadata.name,
@@ -111,27 +89,13 @@ const timescaleDBStatefulSet = new k8s.apps.v1.StatefulSet(
           },
         },
         spec: {
-          initContainers: [
-            {
-              name: "init-chown-data",
-              image: "alpine",
-              command: [
-                "sh",
-                "-c",
-                "addgroup -S postgres && adduser -S postgres -G postgres && mkdir -p /var/lib/postgresql/data/pgdata && chown -R postgres:postgres /var/lib/postgresql/data/pgdata && chmod -R 700 /var/lib/postgresql/data/pgdata",
-              ],
-              volumeMounts: [
-                {
-                  name: "timescaledb-storage",
-                  mountPath: "/var/lib/postgresql/data",
-                },
-              ],
-            },
-          ],
+          securityContext: {
+            fsGroup: 999, // Ensures group permissions on the volume
+          },
           containers: [
             {
               name: "timescaledb",
-              image: "timescale/timescaledb:latest-pg16",
+              image: "timescale/timescaledb-ha:pg16",
               ports: [
                 {
                   containerPort: 5432,
@@ -155,7 +119,7 @@ const timescaleDBStatefulSet = new k8s.apps.v1.StatefulSet(
               ],
               volumeMounts: [
                 {
-                  name: "timescaledb-storage",
+                  name: "timescaledb-k8s-storage",
                   mountPath: "/var/lib/postgresql/data",
                 },
               ],
@@ -163,7 +127,7 @@ const timescaleDBStatefulSet = new k8s.apps.v1.StatefulSet(
           ],
           volumes: [
             {
-              name: "timescaledb-storage",
+              name: "timescaledb-k8s-storage",
               persistentVolumeClaim: {
                 claimName: pvc.metadata.name,
               },
@@ -175,7 +139,7 @@ const timescaleDBStatefulSet = new k8s.apps.v1.StatefulSet(
   },
   {
     provider: k8sProvider,
-    dependsOn: [namespace, stackgresOperator, dbPasswordSecret],
+    dependsOn: [namespace, dbPasswordSecret],
   }
 );
 

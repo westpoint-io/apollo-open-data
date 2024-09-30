@@ -1,0 +1,70 @@
+{
+  "tables": [
+    {
+      "name": "l0_btc_blocks",
+      "columns": [
+        {
+          "name": "hash",
+          "type": "text"
+        },
+        {
+          "name": "timestamp",
+          "type": "timestamptz"
+        },
+        {
+          "name": "nTx",
+          "type": "int4"
+        },
+        {
+          "name": "difficulty",
+          "type": "int8"
+        },
+        {
+          "name": "height",
+          "type": "int4"
+        }
+      ],
+      "constraint": {
+        "name": "l0_btc_blocks_unique_timestamp_hash",
+        "columns": ["timestamp", "hash"]
+      },
+      "hypertable": {
+        "columnName": "timestamp"
+      }
+    }
+  ],
+  "continuous_aggregates": [
+    {
+      "name": "l1_btc_transactions_volume_daily",
+      "query": "SELECT time_bucket('1 day', timestamp) AS time, sum(nTx) AS transactions FROM l0_btc_blocks GROUP BY (time_bucket('1 day', timestamp))"
+    },
+    {
+      "name": "l1_btc_block_height_daily",
+      "query": "SELECT time_bucket('1 day', timestamp) AS time, max(height) AS height FROM l0_btc_blocks GROUP BY time;"
+    },
+    {
+      "name": "l1_btc_block_difficulty_daily",
+      "query": "SELECT time_bucket('1 day', timestamp) AS time, max(difficulty) AS difficulty FROM l0_btc_blocks GROUP BY time;"
+    }
+  ],
+  "aggregate_policies": [
+    {
+      "name": "l1_btc_transactions_volume_daily",
+      "startOffset": "1 week",
+      "endOffset": "1 hour",
+      "scheduleInterval": "5 minutes"
+    },
+    {
+      "name": "l1_btc_block_height_daily",
+      "startOffset": "1 week",
+      "endOffset": "1 hour",
+      "scheduleInterval": "1 hour"
+    },
+    {
+      "name": "l1_btc_block_difficulty_daily",
+      "startOffset": "1 week",
+      "endOffset": "1 hour",
+      "scheduleInterval": "1 hour"
+    }
+  ]
+}
