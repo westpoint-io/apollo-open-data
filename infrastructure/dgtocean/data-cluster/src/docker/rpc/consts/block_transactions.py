@@ -1,3 +1,0 @@
-class BlockTransactionDetails:
-    BLOCK_WITH_TRANSACTIONS_DETAILS = 2
-    BLOCK_WITH_TRANSACTIONS_HASH_ONLY = 1

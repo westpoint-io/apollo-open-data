@@ -1,0 +1,26 @@
+{
+  "name": "dgtocean",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "npx ts-node index.ts",
+    "destroy-stack": "npx ts-node deleteStack.ts",
+    "setup-droplet-ssh-password": "bash setup_droplet_ssh_password.sh",
+    "setup-infrastructure": "bash run_pulumi_and_automation.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@pulumi/pulumi": "^3.134.0",
+    "child_process": "^1.0.2",
+    "inquirer": "^11.0.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.6.2"
+  }
+}
