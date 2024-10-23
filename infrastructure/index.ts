@@ -159,6 +159,20 @@ const getTimescaleIp = () => {
   }
 };
 
+const getGrafanaIp = () => {
+  try {
+    console.log(`Fetching grafanaIp for stack ${stackName}...`);
+    const output = execSync(`pulumi stack output grafanaIp`, {
+      cwd: dataClusterPath,
+    }).toString();
+    const ip = output.trim();
+    return ip;
+  } catch (error) {
+    console.error("Error fetching grafanaIp:", error);
+    throw error;
+  }
+};
+
 // Save Timescale IP to .env
 const createDbBase = async (ip: string) => {
   const envsToAdd = {
@@ -202,6 +216,43 @@ const createDbBase = async (ip: string) => {
   }
 };
 
+const createGrafanaBase = async (ip: string) => {
+  const envsToAdd = {
+    GRAFANA_LB_IP: ip,
+  };
+
+  const currentEnv = loadEnvVariables(dataClusterEnvPath);
+
+  const missingEnv = Object.entries(envsToAdd).reduce((acc, [key, value]) => {
+    if (!currentEnv[key] || currentEnv[key] !== value.toString()) {
+      acc.push(`${key}=${value}`);
+    }
+    return acc;
+  }, [] as string[]);
+
+  const envContent = missingEnv.join("\n");
+
+  if (envContent) {
+    if (!existsSync(dataClusterEnvPath)) {
+      console.log(`Creating new .env file inside ${dataClusterEnvPath}.`);
+      writeFileSync(dataClusterEnvPath, envContent + "\n");
+    } else {
+      console.log(`Updating existing .env file inside ${dataClusterEnvPath}.`);
+      appendFileSync(dataClusterEnvPath, "\n" + envContent + "\n");
+    }
+  }
+
+  try {
+    execSync(`ts-node ./src/grafana/scripts/grafana_base.ts`, {
+      cwd: path.resolve(dataClusterPath),
+      stdio: "inherit", // Passes logs to the console
+    });
+    console.log("Grafana script executed successfully.");
+  } catch (err) {
+    console.error("Error running the grafana script:", err);
+  }
+};
+
 // Main deployment function
 async function deploy() {
   checkOrCreateStack();
@@ -210,7 +261,11 @@ async function deploy() {
 
   runPulumiUp();
   const timescaleIp = getTimescaleIp();
-  createDbBase(timescaleIp);
+  const grafanaIp = getGrafanaIp();
+  await Promise.allSettled([
+    createDbBase(timescaleIp),
+    createGrafanaBase(grafanaIp),
+  ]);
 }
 
 // Run the deployment

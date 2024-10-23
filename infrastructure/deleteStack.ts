@@ -1,48 +1,59 @@
 import { execSync } from "child_process";
+import * as path from "path";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const stackName = "automate-data-cluster";
-const dataClusterPath = "./data-cluster";
+interface StackConfig {
+  name: string;
+  path: string;
+}
 
-// Function to destroy the stack's resources
-function destroyStackResources() {
+const stacks: StackConfig[] = [
+  {
+    name: "automate-data-cluster",
+    path: path.join(__dirname, "data-cluster"),
+  },
+  {
+    name: "automated-bitcoin-droplet",
+    path: path.join(__dirname, "bitcoin-droplet"),
+  },
+  {
+    name: "automated-automation-commands",
+    path: path.join(__dirname, "automation-commands"),
+  },
+];
+
+function executeCommand(command: string, cwd: string) {
   try {
-    console.log(`Destroying resources for stack ${stackName}...`);
-    execSync(`pulumi refresh --yes`, {
-      cwd: dataClusterPath,
-      stdio: "inherit",
-    });
-    execSync(`pulumi destroy --yes`, {
-      cwd: dataClusterPath,
-      stdio: "inherit",
-    });
-    console.log(`Resources for stack ${stackName} destroyed.`);
-  } catch (e) {
-    console.error("Error during stack destruction:", e);
+    execSync(command, { cwd, stdio: "inherit" });
+  } catch (error) {
+    console.error(`Error executing command: ${command}`);
+    console.error(error);
   }
 }
 
-// Function to delete the stack itself
-function deletePulumiStack() {
-  try {
-    console.log(`Deleting stack ${stackName}...`);
-    execSync(`pulumi stack rm ${stackName} --yes`, {
-      cwd: dataClusterPath,
-      stdio: "inherit",
-    });
-    console.log(`Stack ${stackName} deleted.`);
-  } catch (e) {
-    console.error("Error deleting the stack:", e);
+async function refreshAndDestroyStack(stack: StackConfig) {
+  console.log(`Processing stack: ${stack.name}`);
+
+  console.log(`Refreshing resources for stack ${stack.name}...`);
+  executeCommand("pulumi refresh --yes", stack.path);
+
+  console.log(`Destroying resources for stack ${stack.name}...`);
+  executeCommand("pulumi destroy --yes", stack.path);
+
+  console.log(`Removing stack ${stack.name}...`);
+  executeCommand(`pulumi stack rm ${stack.name} --yes`, stack.path);
+
+  console.log(`Stack ${stack.name} processed successfully.`);
+}
+
+async function deleteAllStacks() {
+  for (const stack of stacks) {
+    await refreshAndDestroyStack(stack);
   }
 }
 
-async function deleteStack() {
-  destroyStackResources();
-  deletePulumiStack();
-}
-
-deleteStack().catch((err) => {
+deleteAllStacks().catch((err) => {
   console.error("Error during stack deletion:", err);
 });

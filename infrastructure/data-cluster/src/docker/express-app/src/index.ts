@@ -14,7 +14,7 @@ const initServer = async () => {
   await initWebSocket({ httpServer, pool });
 
   httpServer.listen(PORT, () => {
-    console.info(`App it's running on port : ${PORT}`);
+    console.info(`App is running on port: ${PORT}`);
   });
 };
 

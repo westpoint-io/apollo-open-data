@@ -6,11 +6,11 @@ export const combinedCluster = new digitalocean.KubernetesCluster(
   "data-cluster",
   {
     region: digitalocean.Region.NYC3,
-    version: "1.31.1-do.1",
+    version: "1.31.1-do.2",
     nodePool: {
       name: "data-pool",
       size: digitalocean.DropletSlug.DropletS4VCPU8GB,
-      nodeCount: 2,
+      nodeCount: 1,
     },
   },
   { provider: digitalOceanProvider }
