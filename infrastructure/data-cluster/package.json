@@ -3,7 +3,9 @@
   "main": "index.ts",
   "scripts": {
     "pulumi:deploy": "pulumi refresh --yes && pulumi up --yes",
-    "timescale:deploy": "npx ts-node ./src/timescale/scripts/bitcoin_base.ts"
+    "timescale:deploy": "npx ts-node ./src/timescale/scripts/bitcoin_base.ts",
+    "import:dns": "npx ts-node ./import_dns.ts",
+    "setup:dns": "npx ts-node ./setup_dns_env.ts"
   },
   "devDependencies": {
     "@types/node": "^18",
@@ -15,7 +17,7 @@
   "dependencies": {
     "@kubernetes/client-node": "^0.21.0",
     "@pulumi/aws": "^6.50.1",
-    "@pulumi/digitalocean": "^4.30.2",
+    "@pulumi/digitalocean": "^4.33.0",
     "@pulumi/docker": "^4.5.4",
     "@pulumi/kubernetes": "^4.15.0",
     "@pulumi/kubernetesx": "^0.1.6",

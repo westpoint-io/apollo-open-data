@@ -1,0 +1,17 @@
+{
+    "name": "strapi",
+    "main": "index.ts",
+    "scripts": {
+      "deploy:dev": "dotenvx run -f .env.dev -- pulumi up",
+      "deploy:prod": "dotenvx run -f .env.prod -- pulumi up"
+    },
+    "devDependencies": {
+        "@types/node": "^18",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@dotenvx/dotenvx": "^1.20.0",
+        "@pulumi/digitalocean": "^4.33.0",
+        "@pulumi/pulumi": "^3.113.0"
+    }
+}

@@ -49,7 +49,7 @@ const dashboardConfigMaps = dashboardFiles.map((file) => {
 const dashboardConfigMapsNames = dashboardFiles.map((file) => `grafana-dashboard-${sanitizeDashboardName(path.parse(file).name)}`);
 
 const grafana = new k8s.helm.v3.Chart(
-  "grafana",
+  "grafana-helm",
   {
     chart: "grafana",
     version: "8.4.1",
@@ -100,6 +100,10 @@ const grafana = new k8s.helm.v3.Chart(
         },
         "auth.anonymous": {
           enabled: true,
+        },
+        // Add this section to set the default dashboard
+        dashboards: {
+          default_home_dashboard_path: `/tmp/dashboards/${dashboardConfigMapsNames[0]}.json`
         },
       },
     },

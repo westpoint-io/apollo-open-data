@@ -1,0 +1,16 @@
+{
+    "name": "nextjs-droplet",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^18",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@pulumi/digitalocean": "^4.33.0",
+        "@pulumi/pulumi": "^3.113.0",
+        "@pulumi/std": "^1.7.3"
+    },
+    "scripts": {
+        "pulumi:deploy": "pulumi up --yes"
+    }
+}

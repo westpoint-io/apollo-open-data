@@ -1,5 +1,6 @@
 import inquirer from "inquirer";
 import { config } from "dotenv";
+import chalk from "chalk";
 
 config();
 
@@ -18,9 +19,10 @@ export const getEnvVar = async (
 
   const { userInput } = await inquirer.prompt([
     {
-      type: "input",
+      type: "password",
       name: "userInput",
-      message: promptMessage,
+      message: chalk.blue(promptMessage),
+      mask: "*"
     },
   ]);
 

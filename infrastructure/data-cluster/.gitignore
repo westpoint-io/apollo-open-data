@@ -12,3 +12,4 @@ Pulumi.dev.yaml
 Pulumi.prod.yaml
 Pulumi.automate-data-cluster.yaml
 __pycache__
+generated_dns.ts

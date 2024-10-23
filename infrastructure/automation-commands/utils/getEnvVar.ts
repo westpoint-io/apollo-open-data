@@ -1,6 +1,8 @@
-import inquirer from "inquirer";
 import { config } from "dotenv";
 import { appendFileSync } from "fs";
+
+import inquirer from "inquirer";
+import chalk from "chalk";
 import * as path from "path";
 
 
@@ -23,19 +25,25 @@ export const getEnvVar = async (
   }
 
   if (!promptMessage) {
-    promptMessage = `Please enter a value for ${name}:`;
+    promptMessage = `🤓 Please enter a value for ${name}:`;
+  } else {
+    // Add a rocket emoji to the custom prompt message
+    promptMessage = `🚀 ${promptMessage}`;
   }
 
   const { userInput } = await inquirer.prompt([
     {
-      type: "input",
+      type: "password",
       name: "userInput",
-      message: promptMessage,
+      message: chalk.blue(promptMessage),
+      mask: "*",
     },
   ]);
 
   process.env[name] = userInput;
   writeEnvVarToFile(name, userInput);
+
+  console.log(chalk.green(`✅ Value for ${name} has been set successfully!`));
 
   return userInput;
 };

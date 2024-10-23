@@ -54,9 +54,6 @@ cd ../bitcoin-droplet && yarn && cd ../data-cluster && yarn & cd ..
 npx ts-node index.ts
 source ./data-cluster/.env
 
-echo "Outputed PG_HOST: $PG_HOST"
-echo "Outputed PG_PASSWORD: $PG_PASSWORD"
-echo "Outputed PG_USER: $PG_USER"
 
 sleep 5s
 
